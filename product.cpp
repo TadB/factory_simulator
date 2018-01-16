@@ -1,4 +1,6 @@
-#include"factory.h"
+#include"product.h"
+
+product::product(){}
 
 int product::pushResult(){
 return 1;

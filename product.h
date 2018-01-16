@@ -13,7 +13,7 @@ protected:
     // string name;
     vector<queue<int>> Q; //wektor kolejek typu int - w zaleznosci od produktu moze byc kilka elementow potrzebnych do zlozenia
 public:
-
+    product();
     int pushResult(); //przekazuje wyprodukowany produkt do magazynu, typu int w celu zliczania ilosci wyprodukowanych sztuk
     queue<int>* addQueue(); //zwraca wskaznik na nowo dodana kolejke (dla stanowiska z elementami)
 };

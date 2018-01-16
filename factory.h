@@ -4,6 +4,8 @@
 #include"product.h"
 #include"element.h"
 
+
+
 class factory{
 private:
     // wektory jako pudelka na stanowiska montujace i wytwarzajace poszczegolne przedmioty
@@ -17,9 +19,16 @@ private:
 
     //magazyn wyprodukowanych elementow
     int storehouseTable, storehouseLocker;
+
+    template<class A>
+    void fillVector(vector<A>*, int);
+    void runElements(vector<element>*);
+    void runProducts(vector<product>*);
 public:
     factory();
     factory(int, int, int, int, int, int);
+
+    void run();
 
 };
 

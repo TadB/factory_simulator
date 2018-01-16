@@ -1,5 +1,7 @@
 #include "element.h"
 
+element::element(){}
+
 void element::addSlotAdress(queue<int> *item){
     path.push_back(item);
 }
