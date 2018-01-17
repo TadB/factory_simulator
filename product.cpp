@@ -4,19 +4,25 @@ product::product(){}
 
 bool product::result(){
     //sprawdzanie kazdej z kolejek, jesli kazda jest niepusta to mozna wykonac przedmioty
-    bool production=false;
-    vector<queue<int>>::iterator it;
+    // bool production=false;
+    vector<int>::iterator it;
     for(it=Q.begin(); it<Q.end(); it++){
-        if((*it).empty()==true)
-            production=true;
-        else
-            production=false;
+        if((*it)==0){
+            // production=false;
+            return(false);
+        }
+        // else
+        //     production=true;
     }
-    return(production);
+    //jesli program tutaj dojdzie, to znaczy ze nie zworocil false, czyli nie wyszedl z funkcji wiec zworci true
+    //nalezy jeszcze tylko zmniejszyc kolejki podzespolow, bo uzywamy ich do produkcji
+    for(it=Q.begin(); it<Q.end(); it++) (*it)--;
+
+    return(true);
 }
 
-queue<int>* product::addQueue(){
-    queue<int> temp;
+int* product::addQueue(){
+    int temp=0;
     Q.push_back(temp);
     return (&Q.back()); //zwraca adres nowo dodanego elementu wektora
 }

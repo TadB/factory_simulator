@@ -2,22 +2,24 @@
 
 element::element(){}
 
-void element::addSlotAdress(queue<int> *item){
+void element::addSlotAdress(int *item){
     path.push_back(item);
 }
 
-queue<int>* element::getDirection(){
-    // queue<int> *minAdress;
-    unsigned int minValue;
-    vector<queue<int>*>::iterator it=path.begin();
-    queue<int> *minAdress = *it;
-    minValue=(*it)->size();
+int* element::getDirection(){
+    // int *minAdress;
+    int minValue;
+    vector<int*>::iterator it=path.begin();
+    int* minAdress = *it;
+    minValue=*(*it); //wielkosc kolejki na kotra wskazuje element w vectorze<int*>
     it++; //zeby nie sprawdzac potem tego co juz przypisalismy do minimum czy jest minimum
     for(; it<path.end(); it++){
-        if(((*it)->size())<minValue){
+        if(*(*it)<minValue){
             minAdress=*it;
-            minValue=(*it)->size();
+            minValue=*(*it);
         }
     }//petla poszukuje najmniejszej(najkrotszej) kolejki
+    if((minValue)>9)
+        return(NULL);
     return(minAdress);
 }

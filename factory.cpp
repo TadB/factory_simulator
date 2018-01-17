@@ -18,25 +18,26 @@ factory::factory(int tableNo, int lockerNo, int legNo, int desktopNo, int doorNo
 }
 
 void factory::run(){
+//{{{przekazujemy polprodukty do stacji montazowych
+    runElement(&leg);
+    runElement(&desktop);
+    runElement(&door);
+    runElement(&casing);
+//}}}
 //{{{ powiekszamy magazyny
     storehouseTable+=runProduct(&table);
     storehouseLocker+=runProduct(&locker);
 //}}}
 }
-template<class A>
-void factory::fillVector(vector<A> *item, int number){
-    for(int i=0; i<number; i++){
-        A temporary;
-        (*item).push_back(temporary);
-    }
-}
 
 void factory::runElement(vector<element> *elem){
     vector<element>::iterator it;
-    queue<int> *index; //wskaznik na kolejke ktora jest najkrotsza - do niej wysylamy podzespol
+    int *index; //wskaznik na kolejke ktora jest najkrotsza - do niej wysylamy podzespol
     for(it=(*elem).begin(); it<(*elem).end(); it++){
-        index=(*it).getDirection();
-        (*index).push(1);
+        if((*it).getDirection()!=NULL){
+            index=(*it).getDirection();
+            (*index)++;
+        }//jesli getDirection() zwroci NULL to znaczy ze kolejka jest przepelniona i stanowisko musi poczekac
     }
 }
 
@@ -48,4 +49,12 @@ int factory::runProduct(vector<product> *prod){
             howMany++;
     }
     return(howMany);
+}
+
+template<class A>
+void factory::fillVector(vector<A> *item, int number){
+    for(int i=0; i<number; i++){
+        A temporary;
+        (*item).push_back(temporary);
+    }
 }
