@@ -18,6 +18,12 @@ factory::factory(int tableNo, int lockerNo, int legNo, int desktopNo, int doorNo
     fillVector(desktop, desktopNo);
     fillVector(door, doorNo);
     fillVector(casing, casingNo);
+    makeGraph(leg, table);
+    makeGraph(leg, locker);
+    makeGraph(desktop, table);
+    makeGraph(door, locker);
+    makeGraph(casing, locker);
+
 
 //}}}
 }
