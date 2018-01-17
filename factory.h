@@ -29,6 +29,7 @@ public:
     factory(int, int, int, int, int, int);
 
     void run();
+    void printRes();
 
 };
 

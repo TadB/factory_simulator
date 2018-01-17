@@ -33,7 +33,10 @@ void factory::run(){
     storehouseLocker+=runProduct(&locker);
 //}}}
 }
-
+void factory::printRes(){
+    cout<<"stolow wyprodukowano: "<<storehouseTable<<endl;
+    cout<<"szafek wyprodukowano: "<<storehouseLocker<<endl;
+}
 void factory::runElement(vector<element> *elem){
     vector<element>::iterator it;
     int *index; //wskaznik na kolejke ktora jest najkrotsza - do niej wysylamy podzespol
