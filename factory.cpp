@@ -7,6 +7,10 @@ factory::factory(){
 }
 
 factory::factory(int tableNo, int lockerNo, int legNo, int desktopNo, int doorNo, int casingNo){
+    if((tableNo==0) ||(lockerNo==0) ||(legNo==0) ||(desktopNo==0) ||(doorNo==0) ||(casingNo==0)){
+        cout<<"fabryka jest niepelna nie mozna tak produkowac"<<endl;
+        exit(0);
+    }
 //{{{ uzupelnianie vectorow zadana liczba stanowisk
     fillVector(&table, tableNo);
     fillVector(&locker, lockerNo);
