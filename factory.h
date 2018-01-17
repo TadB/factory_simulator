@@ -21,13 +21,14 @@ private:
     int storehouseTable, storehouseLocker;
 
     template<class A>
-    void fillVector(vector<A>*, int);
-    void runElement(vector<element>*);
-    int runProduct(vector<product>*);
+    void fillVector(vector<A>&, int);
+    void runElement(vector<element>&);
+    int runProduct(vector<product>&);
 public:
     factory();
     factory(int, int, int, int, int, int);
 
+    void makeGraph(vector<element>&, vector<product>&);
     void run();
     void printRes();
 
