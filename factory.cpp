@@ -18,7 +18,10 @@ factory::factory(int tableNo, int lockerNo, int legNo, int desktopNo, int doorNo
 }
 
 void factory::run(){
-
+//{{{ powiekszamy magazyny
+    storehouseTable+=runProduct(&table);
+    storehouseLocker+=runProduct(&locker);
+//}}}
 }
 template<class A>
 void factory::fillVector(vector<A> *item, int number){
@@ -28,10 +31,21 @@ void factory::fillVector(vector<A> *item, int number){
     }
 }
 
-void factory::runElements(vector<element> *elem){
-
+void factory::runElement(vector<element> *elem){
+    vector<element>::iterator it;
+    queue<int> *index; //wskaznik na kolejke ktora jest najkrotsza - do niej wysylamy podzespol
+    for(it=(*elem).begin(); it<(*elem).end(); it++){
+        index=(*it).getDirection();
+        (*index).push(1);
+    }
 }
 
-void factory::runProducts(vector<product> *prod){
-
+int factory::runProduct(vector<product> *prod){
+    int howMany=0; //jak wiele produktow wyprodukuje zbior(vector)(tych samych) stanowisk
+    vector<product>::iterator it;
+    for(it=(*prod).begin(); it<(*prod).end(); it++){
+        if((*it).result()==true)
+            howMany++;
+    }
+    return(howMany);
 }

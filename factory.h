@@ -22,8 +22,8 @@ private:
 
     template<class A>
     void fillVector(vector<A>*, int);
-    void runElements(vector<element>*);
-    void runProducts(vector<product>*);
+    void runElement(vector<element>*);
+    int runProduct(vector<product>*);
 public:
     factory();
     factory(int, int, int, int, int, int);
