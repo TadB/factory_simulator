@@ -8,15 +8,17 @@ void element::addSlotAdress(int *item){
 
 int* element::getDirection(){
     // int *minAdress;
-    int minValue=10;
-    vector<int*>::iterator it=path.begin();
-    int* minAdress = path.at(0);
-    minValue=*(path.at(0)); //wielkosc kolejki na kotra wskazuje element w vectorze<int*>
-    it++; //zeby nie sprawdzac potem tego co juz przypisalismy do minimum czy jest minimum
-    for(int i=1; it<path.end(); i++,it++){
-        if(*(path.at(i))<minValue){
-            minAdress=path.at(i);
-            minValue=*(path.at(i));
+    int minValue=10, i=0;
+    int* minAdress=NULL;
+    vector<int*>::iterator it;
+    it=path.begin();
+    minAdress = path[i];
+    minValue=*(path[i]); //wielkosc kolejki na kotra wskazuje element w vectorze<int*>
+    // it++; //zeby nie sprawdzac potem tego co juz przypisalismy do minimum czy jest minimum
+    for(i=0; it<path.end(); i++,it++){
+        if((*(path[i]))<minValue){
+            minAdress=path[i];
+            minValue=*(path[i]);
         }
     }//petla poszukuje najmniejszej(najkrotszej) kolejki
     if((minValue)>9)

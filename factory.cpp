@@ -6,7 +6,7 @@ factory::factory(){
     exit(0);
 }
 
-factory::factory(int tableNo, int lockerNo, int legNo, int desktopNo, int doorNo, int casingNo){
+factory::factory(int tableNo, int lockerNo, int legNo, int desktopNo, int doorNo, int casingNo):storehouseTable(0), storehouseLocker(0){
     if((tableNo==0) ||(lockerNo==0) ||(legNo==0) ||(desktopNo==0) ||(doorNo==0) ||(casingNo==0)){
         cout<<"fabryka jest niepelna nie mozna tak produkowac"<<endl;
         exit(0);
@@ -32,10 +32,10 @@ void factory::makeGraph(vector<element> &source, vector<product> &dest){
     vector<product>::iterator m;
 
     int i=0 ,j=0;
-    for(i=0, it=source.begin(); it<source.end(); it++, i++){
-        for(j=0, m=dest.begin(); m<dest.end(); m++, j++){
-            int *temp;
-            temp=dest[j].addQueue();
+    for(j=0, m=dest.begin(); m<dest.end(); m++, j++){
+        int *temp;
+        temp=dest[j].addQueue();
+        for(i=0, it=source.begin(); it<source.end(); it++, i++){
             source[i].addSlotAdress(temp);
         } //w tej petli lacze stanowiska robiace podprodukty z adresami stanowiski skladajacych meble
     }
@@ -48,8 +48,11 @@ void factory::run(){
     runElement(casing);
 //}}}
 //{{{ powiekszamy magazyny
-    storehouseTable+=runProduct(table);
-    storehouseLocker+=runProduct(locker);
+    int count=0;
+    count = runProduct(table);
+    storehouseTable+=count;
+    count = runProduct(locker);
+    storehouseLocker+=count;
 //}}}
 }
 void factory::printRes(){
@@ -60,9 +63,9 @@ void factory::runElement(vector<element> &elem){
     vector<element>::iterator it;
     int i;
     int *index; //wskaznik na kolejke ktora jest najkrotsza - do niej wysylamy podzespol
-    for(i=0, it=elem.begin(); it<elem.end(); i++, ++it){
-        if((elem.at(i)).getDirection()!=NULL){
-            index=(elem.at(i)).getDirection();
+    for(i=0, it=elem.begin(); it<elem.end(); i++, it++){
+        if((elem[i]).getDirection()!=NULL){
+            index=(elem[i]).getDirection();
             (*index)++;
         }//jesli getDirection() zwroci NULL to znaczy ze kolejka jest przepelniona i stanowisko musi poczekac
     }
@@ -71,8 +74,8 @@ void factory::runElement(vector<element> &elem){
 int factory::runProduct(vector<product> &prod){
     int i, howMany=0; //jak wiele produktow wyprodukuje zbior(vector)(tych samych) stanowisk
     vector<product>::iterator it;
-    for(i=0, it=prod.begin(); it<prod.end(); i++, ++it){
-        if(prod.at(i).result()==true)
+    for(i=0, it=prod.begin(); it<prod.end(); i++, it++){
+        if(prod[i].result()==true)
             howMany++;
     }
     return(howMany);
