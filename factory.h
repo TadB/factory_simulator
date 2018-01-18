@@ -9,26 +9,26 @@
 class factory{
 private:
     // wektory jako pudelka na stanowiska montujace i wytwarzajace poszczegolne przedmioty
-    vector<product> table;
-    vector<product> locker; //szafki xd
+    list<product> table;
+    list<product> locker; //szafki xd
 
-    vector<element> leg;
-    vector<element> desktop;
-    vector<element> door;
-    vector<element> casing; //obudowa
+    list<element> leg;
+    list<element> desktop;
+    list<element> door;
+    list<element> casing; //obudowa
 
     //magazyn wyprodukowanych elementow
     int storehouseTable, storehouseLocker;
 
     template<class A>
-    void fillVector(vector<A>&, int);
-    void runElement(vector<element>&);
-    int runProduct(vector<product>&);
+    void filllist(list<A>&, int);
+    void runElement(list<element>&);
+    int runProduct(list<product>&);
 public:
     factory();
     factory(int, int, int, int, int, int);
 
-    void makeGraph(vector<element>&, vector<product>&);
+    void makeGraph(list<element>&, list<product>&);
     void run();
     void printRes();
 

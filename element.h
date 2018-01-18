@@ -6,7 +6,7 @@
 class element{
 protected:
     // string name;
-    vector<int*>path; //wektor wskaznikow na produkty, ktore beda wytwarzane z tych elementow
+    list<int*> path; //wektor wskaznikow na produkty, ktore beda wytwarzane z tych elementow
 public:
     // element();
     //  void timeStep();//krok czasowy po ktorym wysylany jest przedmiot do nastepnego stanowiska

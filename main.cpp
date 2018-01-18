@@ -2,9 +2,9 @@
 #include"factory.h"
 
 int main(){
-    factory simulation(1,1,2,2,2,2);
-    for(int i=0; i<4; i++){
-        usleep(500*1000);
+    factory simulation(1,2,4,4,4,4);
+    for(int i=0; i<124; i++){
+        // usleep(100*1000);
         simulation.run();
     }
     // simulation.run();

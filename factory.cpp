@@ -11,40 +11,42 @@ factory::factory(int tableNo, int lockerNo, int legNo, int desktopNo, int doorNo
         cout<<"fabryka jest niepelna nie mozna tak produkowac"<<endl;
         exit(0);
     }
-//{{{ uzupelnianie vectorow zadana liczba stanowisk
-    fillVector(table, tableNo);
-    fillVector(locker, lockerNo);
-    fillVector(leg, legNo);
-    fillVector(desktop, desktopNo);
-    fillVector(door, doorNo);
-    fillVector(casing, casingNo);
-    makeGraph(leg, table);
-    makeGraph(leg, locker);
+//{{{ uzupelnianie listow zadana liczba stanowisk
+    filllist(table, tableNo);
+    filllist(locker, lockerNo);
+    filllist(leg, legNo);
+    filllist(desktop, desktopNo);
+    filllist(door, doorNo);
+    filllist(casing, casingNo);
     makeGraph(desktop, table);
+    makeGraph(leg, table);
     makeGraph(door, locker);
+    makeGraph(leg, locker);
     makeGraph(casing, locker);
 
 
 //}}}
 }
-void factory::makeGraph(vector<element> &source, vector<product> &dest){
-    vector<element>::iterator it;
-    vector<product>::iterator m;
+void factory::makeGraph(list<element> &source, list<product> &dest){
+    list<element>::iterator it;
+    list<product>::iterator m;
 
-    int i=0 ,j=0;
-    for(j=0, m=dest.begin(); m<dest.end(); m++, j++){
+    // int i=0 ,j=0;
+    for(m=dest.begin(); m!=dest.end(); m++){
         int *temp;
-        temp=dest[j].addQueue();
-        for(i=0, it=source.begin(); it<source.end(); it++, i++){
-            source[i].addSlotAdress(temp);
+        temp=(*m).addQueue();
+
+        for( it=source.begin(); it!=source.end(); it++){
+            (*it).addSlotAdress(temp);
+            // int sprawdz = *(source[i].path[0]);
         } //w tej petli lacze stanowiska robiace podprodukty z adresami stanowiski skladajacych meble
     }
 }
 void factory::run(){
 //{{{przekazujemy polprodukty do stacji montazowych
-    runElement(leg);
     runElement(desktop);
     runElement(door);
+    runElement(leg);
     runElement(casing);
 //}}}
 //{{{ powiekszamy magazyny
@@ -59,30 +61,30 @@ void factory::printRes(){
     cout<<"stolow wyprodukowano: "<<storehouseTable<<endl;
     cout<<"szafek wyprodukowano: "<<storehouseLocker<<endl;
 }
-void factory::runElement(vector<element> &elem){
-    vector<element>::iterator it;
-    int i;
+void factory::runElement(list<element> &elem){
+    list<element>::iterator it;
+    // int i;
     int *index; //wskaznik na kolejke ktora jest najkrotsza - do niej wysylamy podzespol
-    for(i=0, it=elem.begin(); it<elem.end(); i++, it++){
-        if((elem[i]).getDirection()!=NULL){
-            index=(elem[i]).getDirection();
+    for(it=elem.begin(); it!=elem.end(); it++){
+        if((*it).getDirection()!=NULL){
+            index=(*it).getDirection();
             (*index)++;
         }//jesli getDirection() zwroci NULL to znaczy ze kolejka jest przepelniona i stanowisko musi poczekac
     }
 }
 
-int factory::runProduct(vector<product> &prod){
-    int i, howMany=0; //jak wiele produktow wyprodukuje zbior(vector)(tych samych) stanowisk
-    vector<product>::iterator it;
-    for(i=0, it=prod.begin(); it<prod.end(); i++, it++){
-        if(prod[i].result()==true)
+int factory::runProduct(list<product> &prod){
+    int howMany=0; //jak wiele produktow wyprodukuje zbior(list)(tych samych) stanowisk
+    list<product>::iterator it;
+    for(it=prod.begin(); it!=prod.end(); it++){
+        if((*it).result()==true)
             howMany++;
     }
     return(howMany);
 }
 
 template<class A>
-void factory::fillVector(vector<A> &item, int number){
+void factory::filllist(list<A> &item, int number){
     for(int i=0; i<number; i++){
         A temporary;
         item.push_back(temporary);
