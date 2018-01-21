@@ -1,4 +1,6 @@
-ymulator fabryki mebli
+proj3
+
+symulator fabryki mebli
 Oprogramować graf modelujący abstrakcyjny system kolejkowy, w którym:
 - węzeł grafu odpowiada stanowisku przetwarzania (np. wytwarzanie blatów),
 - stanowisko produkuje obiekt danego typu (np. lakierowanie),

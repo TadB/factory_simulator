@@ -4,7 +4,7 @@
 int main(){
     factory simulation(1,2,4,4,4,4);
     for(int i=0; i<124; i++){
-        // usleep(100*1000);
+        usleep(100*1000);
         simulation.run();
     }
     // simulation.run();
