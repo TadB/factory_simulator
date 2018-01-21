@@ -4,7 +4,7 @@
 
 
 class element{
-protected:
+private:
     // string name;
     list<int*> path; //wektor wskaznikow na produkty, ktore beda wytwarzane z tych elementow
 public:

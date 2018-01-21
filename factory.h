@@ -21,9 +21,13 @@ private:
     int storehouseTable, storehouseLocker;
 
     template<class A>
+    void filllist(list<A>&, int, string);
+    template<class A>
     void filllist(list<A>&, int);
     void runElement(list<element>&);
     int runProduct(list<product>&);
+    // template<class A>
+    void printQ(list<product>&);
 public:
     factory();
     factory(int, int, int, int, int, int);

@@ -24,4 +24,4 @@ int* element::getDirection(){
     if((minValue)>9)
         return(NULL);
     return(minAdress);
-}
+}   

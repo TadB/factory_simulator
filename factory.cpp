@@ -12,8 +12,8 @@ factory::factory(int tableNo, int lockerNo, int legNo, int desktopNo, int doorNo
         exit(0);
     }
 //{{{ uzupelnianie listow zadana liczba stanowisk
-    filllist(table, tableNo);
-    filllist(locker, lockerNo);
+    filllist(table, tableNo, "table");
+    filllist(locker, lockerNo, "locker");
     filllist(leg, legNo);
     filllist(desktop, desktopNo);
     filllist(door, doorNo);
@@ -23,10 +23,32 @@ factory::factory(int tableNo, int lockerNo, int legNo, int desktopNo, int doorNo
     makeGraph(door, locker);
     makeGraph(leg, locker);
     makeGraph(casing, locker);
-
-
 //}}}
 }
+
+void factory::run(){
+    //{{{przekazujemy polprodukty do stacji montazowych
+    runElement(desktop);
+    runElement(door);
+    runElement(leg);
+    runElement(casing);
+    //}}}
+    //{{{ powiekszamy magazyny
+    int count=0;
+    count = runProduct(table);
+    storehouseTable+=count;
+    count = runProduct(locker);
+    storehouseLocker+=count;
+    //}}}
+}
+
+void factory::printRes(){
+    printQ(table);
+    printQ(locker);
+    cout<<"stolow wyprodukowano: "<<storehouseTable<<endl;
+    cout<<"szafek wyprodukowano: "<<storehouseLocker<<endl;
+}
+
 void factory::makeGraph(list<element> &source, list<product> &dest){
     list<element>::iterator it;
     list<product>::iterator m;
@@ -41,25 +63,6 @@ void factory::makeGraph(list<element> &source, list<product> &dest){
             // int sprawdz = *(source[i].path[0]);
         } //w tej petli lacze stanowiska robiace podprodukty z adresami stanowiski skladajacych meble
     }
-}
-void factory::run(){
-//{{{przekazujemy polprodukty do stacji montazowych
-    runElement(desktop);
-    runElement(door);
-    runElement(leg);
-    runElement(casing);
-//}}}
-//{{{ powiekszamy magazyny
-    int count=0;
-    count = runProduct(table);
-    storehouseTable+=count;
-    count = runProduct(locker);
-    storehouseLocker+=count;
-//}}}
-}
-void factory::printRes(){
-    cout<<"stolow wyprodukowano: "<<storehouseTable<<endl;
-    cout<<"szafek wyprodukowano: "<<storehouseLocker<<endl;
 }
 void factory::runElement(list<element> &elem){
     list<element>::iterator it;
@@ -88,5 +91,25 @@ void factory::filllist(list<A> &item, int number){
     for(int i=0; i<number; i++){
         A temporary;
         item.push_back(temporary);
+    }
+}
+template<class A>
+void factory::filllist(list<A> &item, int number, string text){
+    for(int i=0; i<number; i++){
+        A temporary(text);
+        item.push_back(temporary);
+    }
+}
+
+// template<class A>
+void factory::printQ(list<product> &item){
+    list<product>::iterator it;
+    int n=0;
+    // string text=(*it).getName();
+    cout<<(*item.begin()).getName()<<endl;
+    for(n=0, it=item.begin(); it!=item.end(); n++, it++){
+        cout<<"kolejki przy stanowisku nr: "<<n+1<<" -> ";
+        (*it).countQ();
+        cout<<endl;
     }
 }
