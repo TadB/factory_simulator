@@ -4,7 +4,7 @@
 
 int main(){
 
-    simulationRun();
+    start();
 
     return(0);
 }

@@ -6,10 +6,10 @@
 
 using namespace std;
 
-void simulationRun();
-void mainMenu();
+void simulationRun(factory &, int, int);
+void start();
 void resetBuf();
-void userIns();
+factory userIns();
 
 void clearScreen();
 #endif

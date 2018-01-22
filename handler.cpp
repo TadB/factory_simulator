@@ -11,7 +11,7 @@ void resetBuf(){
     }
 }
 
-void userIns(){
+factory userIns(){
 //{{{ stanowiska wytwarzajace polfabrykaty
     int leg, desktop, door, casing;
     cout<<"podaj ilosc stanowisk wytwarzajacych: "<<endl;
@@ -32,9 +32,19 @@ void userIns(){
     cout<<"\n szafki: ";
     cin>>locker;
 //}}}
+    int timer=12, timeStep=100;
+    cout<<"wprowadz czas trwania symulacji(w sekundach): ";
+    cin>>timer;
+    cout<<"\npodaj krok czasowy: ";
+    cin>>timeStep;
+    cout<<endl;
+
     factory simulation(table, locker, leg, desktop, door, casing);
+    simulationRun(simulation, timer, timeStep);
+    simulation.printRes();
+    return(simulation);
 }
-void mainMenu(){
+void start(){
     char c, confirm;
     do{
         //refreshScreen
@@ -58,17 +68,22 @@ void mainMenu(){
         switch(c){
             case '1':{
                 factory simulation(1,1,2,4,2,4);
-                for(int i=0; i<12; i++){
-                       usleep(100*1000);
-                       simulation.run();
-                   }
-                simulation.printRes();
+                simulationRun(simulation, 20, 100);
                 cout<<"wcisnij enter aby kontynuowac"<<endl;
                 system("read");
             }
                 break;
             case '2':{
-                userIns();
+                factory results;
+                results = userIns();
+                cout<<"zapisac wyniki symulacji? t/N";
+                cin>>confirm;
+                if(confirm=='T'){
+                    //zapisz do pliku - przekierowac wyjscie otowrzyc plik lub spytac o nazwe
+                    results.printRes();
+                }
+                else
+                    clearScreen();
             }
                 break;
             case '3':
@@ -91,9 +106,14 @@ void mainMenu(){
     }while(c!='9');
 }
 
-void simulationRun(){
 
-    mainMenu();
+void simulationRun(factory &sim, int timer, int timeStep){
+
+    for(int i=0; i<timer; i++){
+           usleep(timeStep*1000);
+           sim.run();
+       }
+    sim.printRes();
 //
     // factory simulation(1,1,2,4,2,4);
 //     for(int i=0; i<12; i++){
