@@ -1,0 +1,14 @@
+table
+kolejki przy stanowisku nr: 1 -> 0 | 0 | 
+
+kolejki przy stanowisku nr: 2 -> 0 | 0 | 
+
+kolejki przy stanowisku nr: 3 -> 0 | 0 | 
+
+locker
+kolejki przy stanowisku nr: 1 -> 10 | 0 | 10 | 
+
+kolejki przy stanowisku nr: 2 -> 10 | 0 | 10 | 
+
+stolow wyprodukowano: 90
+szafek wyprodukowano: 0

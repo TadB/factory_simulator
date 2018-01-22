@@ -2,14 +2,6 @@
 #include<unistd.h>
 #include<fstream>
 
-//reset buffer to default
-void resetBuf(){
-    std::string line;
-    while(std::getline(std::cin, line))  //input from the file in.txt
-    {
-        std::cout << line << "\n";   //output to the file out.txt
-    }
-}
 
 factory userIns(){
 //{{{ stanowiska wytwarzajace polfabrykaty
@@ -17,11 +9,11 @@ factory userIns(){
     cout<<"podaj ilosc stanowisk wytwarzajacych: "<<endl;
     cout<<" nogi: ";
     cin>>leg;
-    cout<<"\n blaty: ";
+    cout<<"blaty: ";
     cin>>desktop;
-    cout<<"\n drzwiczki: ";
+    cout<<"drzwiczki: ";
     cin>>door;
-    cout<<"\n obudowy: ";
+    cout<<"obudowy: ";
     cin>>casing;
 //}}}
 //{{{ stanowiska skladajace produkty
@@ -35,13 +27,14 @@ factory userIns(){
     int timer=12, timeStep=100;
     cout<<"wprowadz czas trwania symulacji(w sekundach): ";
     cin>>timer;
-    cout<<"\npodaj krok czasowy: ";
+    cout<<"\npodaj czas wykonania jednej sztuki(w ms): ";
     cin>>timeStep;
+    timer=timer*(int)(1000/timeStep);
     cout<<endl;
 
     factory simulation(table, locker, leg, desktop, door, casing);
     simulationRun(simulation, timer, timeStep);
-    simulation.printRes();
+    // simulation.printRes();
     return(simulation);
 }
 void start(){
@@ -55,11 +48,11 @@ void start(){
         cout<<"2 - ";
         cout<<"wczytaj wartosci z palca"<<endl;
         cout<<"3 - ";
-        cout<<"zapisz do pliku"<<endl;
-        cout<<"4 - ";
-        cout<<"wyswietl wyniki na ekranie"<<endl;
-        cout<<"5 - ";
-        cout<<"wczytaj z pliku"<<endl;
+        cout<<"wczytaj dane z pliku"<<endl;
+        // cout<<"4 - ";
+        // cout<<"wyswietl wyniki na ekranie"<<endl;
+        // cout<<"5 - ";
+        // cout<<"zapisz do pliku"<<endl;
         cout<<"9 - ";
         cout<<"zakoncz program"<<endl;
         cout<<"wprowadz jedna z podanych opcji: ";
@@ -76,11 +69,22 @@ void start(){
             case '2':{
                 factory results;
                 results = userIns();
-                cout<<"zapisac wyniki symulacji? t/N";
+                // getchar();
+                cout<<"zapisac wyniki symulacji? t/N: ";
                 cin>>confirm;
-                if(confirm=='T'){
+                if(confirm=='t'){
                     //zapisz do pliku - przekierowac wyjscie otowrzyc plik lub spytac o nazwe
+                    string fileName;
+                    cout<<"wprowadz nazwe pliku: ";
+                    cin>>fileName;
+                    fileName= fileName+".txt";
+                    ofstream dataFile;
+                    dataFile.open(fileName);
+                    auto coutbuf=cout.rdbuf(dataFile.rdbuf()); //przekierowanie bufora na zapis do pliku dataFile
                     results.printRes();
+                    cout.rdbuf(coutbuf); //reset do standardowego wyjscia 
+                    cout<<"wcisnij enter aby kontynuowac"<<endl;
+                    system("read");
                 }
                 else
                     clearScreen();
