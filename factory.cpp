@@ -6,18 +6,18 @@ factory::factory(){
     // exit(0);
 }
 
-factory::factory(int tableNo, int lockerNo, int legNo, int desktopNo, int doorNo, int casingNo):storehouseTable(0), storehouseLocker(0){
+factory::factory(int tableNo, int tableTime, int lockerNo, int lockerTime,int legNo, int legTime,int desktopNo, int desktopTime, int doorNo, int doorTime, int casingNo, int casingTime):storehouseTable(0), storehouseLocker(0){
     if((tableNo==0) ||(lockerNo==0) ||(legNo==0) ||(desktopNo==0) ||(doorNo==0) ||(casingNo==0)){
         cout<<"fabryka jest niepelna nie mozna tak produkowac"<<endl;
         exit(0);
     }
 //{{{ uzupelnianie listow zadana liczba stanowisk
-    filllist(table, tableNo, "table");
-    filllist(locker, lockerNo, "locker");
-    filllist(leg, legNo);
-    filllist(desktop, desktopNo);
-    filllist(door, doorNo);
-    filllist(casing, casingNo);
+    filllist(table, tableNo, "table", tableTime);
+    filllist(locker, lockerNo, "locker", lockerTime);
+    filllist(leg, legNo, legTime);
+    filllist(desktop, desktopNo, desktopTime);
+    filllist(door, doorNo, doorTime);
+    filllist(casing, casingNo, casingTime);
     makeGraph(desktop, table);
     makeGraph(leg, table);
     makeGraph(door, locker);
@@ -26,19 +26,28 @@ factory::factory(int tableNo, int lockerNo, int legNo, int desktopNo, int doorNo
 //}}}
 }
 
-void factory::run(){
+void factory::run(int counter){
     //{{{przekazujemy polprodukty do stacji montazowych
-    runElement(desktop);
-    runElement(door);
-    runElement(leg);
-    runElement(casing);
+    //wystarczy sprawdzac tylko pierwszy element listy, reszta ma takie same czasy wykonania
+    if((*desktop.begin()).isMade(counter))
+        runElement(desktop);
+    if((*door.begin()).isMade(counter))
+        runElement(door);
+    if((*leg.begin()).isMade(counter))
+        runElement(leg);
+    if((*casing.begin()).isMade(counter))
+        runElement(casing);
     //}}}
     //{{{ powiekszamy magazyny
     int count=0;
-    count = runProduct(table);
-    storehouseTable+=count;
-    count = runProduct(locker);
-    storehouseLocker+=count;
+    if((*table.begin()).isMade(counter)){
+        count = runProduct(table);
+        storehouseTable+=count;
+    }
+    if((*locker.begin()).isMade(counter)){
+        count = runProduct(locker);
+        storehouseLocker+=count;
+    }
     //}}}
 }
 
@@ -87,16 +96,16 @@ int factory::runProduct(list<product> &prod){
 }
 
 template<class A>
-void factory::filllist(list<A> &item, int number){
+void factory::filllist(list<A> &item, int number, int timer){
     for(int i=0; i<number; i++){
-        A temporary;
+        A temporary(timer);
         item.push_back(temporary);
     }
 }
 template<class A>
-void factory::filllist(list<A> &item, int number, string text){
+void factory::filllist(list<A> &item, int number, string text, int timer){
     for(int i=0; i<number; i++){
-        A temporary(text);
+        A temporary(text, timer);
         item.push_back(temporary);
     }
 }

@@ -1,7 +1,8 @@
 #include"product.h"
 
-product::product(string s) {
+product::product(string s, int number) {
     name = s;
+    interval = number;
 }
 
 bool product::result(){
@@ -52,4 +53,13 @@ void product::countQ(){
 
 string product::getName(){
     return (name);
+}
+
+bool product::isMade(int number){
+    int check;
+    check = number%interval;
+    if(check == 0)
+        return true;
+    else
+        return false;
 }

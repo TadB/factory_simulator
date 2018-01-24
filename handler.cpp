@@ -6,34 +6,48 @@
 factory userIns(){
 //{{{ stanowiska wytwarzajace polfabrykaty
     int leg, desktop, door, casing;
+    int legTime, desktopTime, doorTime, casingTime;
     cout<<"podaj ilosc stanowisk wytwarzajacych: "<<endl;
     cout<<" nogi: ";
     cin>>leg;
+    cout<<"podaj czas wykonania jednej sztuki: ";
+    cin>>legTime;
     cout<<"blaty: ";
     cin>>desktop;
+    cout<<"podaj czas wykonania jednej sztuki: ";
+    cin>>desktopTime;
     cout<<"drzwiczki: ";
     cin>>door;
+    cout<<"podaj czas wykonania jednej sztuki: ";
+    cin>>doorTime;
     cout<<"obudowy: ";
     cin>>casing;
+    cout<<"podaj czas wykonania jednej sztuki: ";
+    cin>>casingTime;
 //}}}
 //{{{ stanowiska skladajace produkty
     int table, locker;
+    int tableTime, lockerTime;
     cout<<"podaj ilosc stanowisk skaldajacych: "<<endl;
     cout<<" stoly: ";
     cin>>table;
-    cout<<"\n szafki: ";
+    cout<<"podaj czas wykonania jednej sztuki: ";
+    cin>>tableTime;
+    cout<<"szafki: ";
     cin>>locker;
+    cout<<"podaj czas wykonania jednej sztuki: ";
+    cin>>lockerTime;
 //}}}
-    int timer=12, timeStep=100;
+    int timer=12;
     cout<<"wprowadz czas trwania symulacji(w sekundach): ";
     cin>>timer;
-    cout<<"\npodaj czas wykonania jednej sztuki(w ms): ";
-    cin>>timeStep;
-    timer=timer*(int)(1000/timeStep);
+    // cout<<"\npodaj czas wykonania jednej sztuki(w ms): ";
+    // cin>>timeStep;
+    // timer=timer*(int)(1000/timeStep);
     cout<<endl;
 
-    factory simulation(table, locker, leg, desktop, door, casing);
-    simulationRun(simulation, timer, timeStep);
+    factory simulation(table, tableTime, locker, lockerTime, leg, legTime, desktop, desktopTime, door, doorTime, casing, casingTime);
+    simulationRun(simulation, timer);
     // simulation.printRes();
     return(simulation);
 }
@@ -47,8 +61,8 @@ void start(){
         cout<<"uruchom symulacje z domyslnymi wartosciami"<<endl;
         cout<<"2 - ";
         cout<<"wczytaj wartosci z palca"<<endl;
-        cout<<"3 - ";
-        cout<<"wczytaj dane z pliku"<<endl;
+        // cout<<"3 - ";
+        // cout<<"wczytaj dane z pliku"<<endl;
         // cout<<"4 - ";
         // cout<<"wyswietl wyniki na ekranie"<<endl;
         // cout<<"5 - ";
@@ -60,8 +74,8 @@ void start(){
         clearScreen();
         switch(c){
             case '1':{
-                factory simulation(1,1,2,4,2,4);
-                simulationRun(simulation, 20, 100);
+                factory simulation(1,1,1,1,2,1,4,1,2,1,4,1);
+                simulationRun(simulation, 20);
                 cout<<"wcisnij enter aby kontynuowac"<<endl;
                 system("read");
             }
@@ -82,7 +96,7 @@ void start(){
                     dataFile.open(fileName);
                     auto coutbuf=cout.rdbuf(dataFile.rdbuf()); //przekierowanie bufora na zapis do pliku dataFile
                     results.printRes();
-                    cout.rdbuf(coutbuf); //reset do standardowego wyjscia 
+                    cout.rdbuf(coutbuf); //reset do standardowego wyjscia
                     cout<<"wcisnij enter aby kontynuowac"<<endl;
                     system("read");
                 }
@@ -111,20 +125,14 @@ void start(){
 }
 
 
-void simulationRun(factory &sim, int timer, int timeStep){
+void simulationRun(factory &sim, int timer){
 
     for(int i=0; i<timer; i++){
-           usleep(timeStep*1000);
-           sim.run();
+           usleep(100*1000);
+           sim.run(i);
        }
     sim.printRes();
-//
-    // factory simulation(1,1,2,4,2,4);
-//     for(int i=0; i<12; i++){
-//         usleep(100*1000);
-//         simulation.run();
-//     }
-// simulation.printRes();
+
 }
 
 

@@ -2,6 +2,9 @@
 
 // element::element(): path() s{}
 
+element::element(int number){
+    interval = number;
+}
 void element::addSlotAdress(int *item){
     path.push_back(item);
 }
@@ -24,4 +27,13 @@ int* element::getDirection(){
     if((minValue)>9)
         return(NULL);
     return(minAdress);
-}   
+}
+
+bool element::isMade(int number){
+    int check;
+    check = number%interval;
+    if(check == 0)
+        return true;
+    else
+        return false;
+}
