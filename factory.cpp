@@ -2,8 +2,6 @@
 
 //konstruktory
 factory::factory(){
-    // cout<<"nie ma pustych fabryk!";
-    // exit(0);
 }
 
 factory::factory(int tableNo, int tableTime, int lockerNo, int lockerTime,int legNo, int legTime,int desktopNo, int desktopTime, int doorNo, int doorTime, int casingNo, int casingTime):storehouseTable(0), storehouseLocker(0){
@@ -62,20 +60,17 @@ void factory::makeGraph(list<element> &source, list<product> &dest){
     list<element>::iterator it;
     list<product>::iterator m;
 
-    // int i=0 ,j=0;
     for(m=dest.begin(); m!=dest.end(); m++){
         int *temp;
         temp=(*m).addQueue();
 
         for( it=source.begin(); it!=source.end(); it++){
             (*it).addSlotAdress(temp);
-            // int sprawdz = *(source[i].path[0]);
         } //w tej petli lacze stanowiska robiace podprodukty z adresami stanowiski skladajacych meble
     }
 }
 void factory::runElement(list<element> &elem){
     list<element>::iterator it;
-    // int i;
     int *index; //wskaznik na kolejke ktora jest najkrotsza - do niej wysylamy podzespol
     for(it=elem.begin(); it!=elem.end(); it++){
         if((*it).getDirection()!=NULL){
@@ -110,11 +105,9 @@ void factory::filllist(list<A> &item, int number, string text, int timer){
     }
 }
 
-// template<class A>
 void factory::printQ(list<product> &item){
     list<product>::iterator it;
     int n=0;
-    // string text=(*it).getName();
     cout<<(*item.begin()).getName()<<endl;
     for(n=0, it=item.begin(); it!=item.end(); n++, it++){
         cout<<"kolejki przy stanowisku nr: "<<n+1<<" -> ";

@@ -8,7 +8,6 @@ using namespace std;
 
 void simulationRun(factory &, int);
 void start();
-// void resetBuf();
 factory userIns();
 
 void clearScreen();

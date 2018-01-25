@@ -26,7 +26,6 @@ private:
     void filllist(list<A>&, int, int);
     void runElement(list<element>&);
     int runProduct(list<product>&);
-    // template<class A>
     void printQ(list<product>&);
 public:
     factory();

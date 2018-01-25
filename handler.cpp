@@ -41,14 +41,10 @@ factory userIns(){
     int timer=12;
     cout<<"wprowadz czas trwania symulacji(w sekundach): ";
     cin>>timer;
-    // cout<<"\npodaj czas wykonania jednej sztuki(w ms): ";
-    // cin>>timeStep;
-    // timer=timer*(int)(1000/timeStep);
     cout<<endl;
 
     factory simulation(table, tableTime, locker, lockerTime, leg, legTime, desktop, desktopTime, door, doorTime, casing, casingTime);
     simulationRun(simulation, timer);
-    // simulation.printRes();
     return(simulation);
 }
 void start(){
@@ -61,12 +57,6 @@ void start(){
         cout<<"uruchom symulacje z domyslnymi wartosciami"<<endl;
         cout<<"2 - ";
         cout<<"wczytaj wartosci z palca"<<endl;
-        // cout<<"3 - ";
-        // cout<<"wczytaj dane z pliku"<<endl;
-        // cout<<"4 - ";
-        // cout<<"wyswietl wyniki na ekranie"<<endl;
-        // cout<<"5 - ";
-        // cout<<"zapisz do pliku"<<endl;
         cout<<"9 - ";
         cout<<"zakoncz program"<<endl;
         cout<<"wprowadz jedna z podanych opcji: ";
@@ -83,7 +73,6 @@ void start(){
             case '2':{
                 factory results;
                 results = userIns();
-                // getchar();
                 cout<<"zapisac wyniki symulacji? t/N: ";
                 cin>>confirm;
                 if(confirm=='t'){

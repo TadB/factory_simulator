@@ -1,6 +1,5 @@
 #include "element.h"
 
-// element::element(): path() s{}
 
 element::element(int number){
     interval = number;
@@ -10,14 +9,12 @@ void element::addSlotAdress(int *item){
 }
 
 int* element::getDirection(){
-    // int *minAdress;
     int minValue=10;
     int* minAdress=NULL;
     list<int*>::iterator it;
     it=path.begin();
     minAdress = *it;
     minValue=*(*it); //wielkosc kolejki na kotra wskazuje element w listze<int*>
-    // it++; //zeby nie sprawdzac potem tego co juz przypisalismy do minimum czy jest minimum
     for(; it!=path.end(); it++){
         if((*(*it))<minValue){
             minAdress=*it;
